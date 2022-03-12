@@ -1,31 +1,67 @@
-import React from "react";
+import React, {useState} from "react";
 import Button from "../components/Button";
+import Checkbox from "../components/Checkbox";
+import Input from "../components/Input";
+import Label from "../components/Label";
 import Guest from "../layouts/Guest";
+import Link from "next/link";
 
 export default function Login() {
+    const [isEmail, setemail] = useState('');
+    const [isPassword, setPassword] = useState('');
+
+
     return (
         <div>
-            <h1 className="text-2xl font-light uppercase ">Login</h1>
             <form>
                 <div className="mb-5">
-                    <label className="block mb-2 text-sm font-medium text-gray-700" htmlFor="email">Email</label>
-                    <input className="w-full px-4 py-2 transition duration-300 border shadow outline-none focus:ring rounded-xl" type="text" name="email" id="email" />
+                    <Label htmlFor="email">Email</Label>
+                    <Input
+                        placeholder="xxxxx@gmail.com"
+                        type="email"
+                        required
+                        name="email"
+                        id="email"
+                    />
                 </div>
                 <div className="mb-5">
-                    <label className="block mb-2 text-sm font-medium text-gray-700" htmlFor="password">Password</label>
-                    <input className="w-full px-4 py-2 transition duration-300 border shadow outline-none focus:ring rounded-xl" type="password" name="password" id="password" />
+                    <Label htmlFor="password">Password</Label>
+                    <Input
+                        placeholder="Password"
+                        type="password"
+                        required
+                        name="password"
+                        id="password"
+                    />
                 </div>
                 <div className="flex justify-between mb-5">
-                    <div >
-                        <input className="mr-2 accent-purple-800" type="checkbox" name="remember" id="remember" />
-                        <label htmlFor="remember">Remember Me</label>
+                    <div>
+                        <Checkbox
+                            forInput="remember"
+                            label="Remember Me"
+                            type="checkbox"
+                            name="remember"
+                            id="remember"
+                        />
                     </div>
-                        <a href="#">Forget Password</a>
+                    <a href="#">Forget Password</a>
                 </div>
-                <Button>Login</Button>
+                <div className="flex items-center justify-between">
+                    <Button>Login</Button>
+                    <span>
+                        Jika belum punya akun ?{" "}
+                        <Link href="/register">
+                            <a className="font-medium text-blue-700">
+                                register
+                            </a>
+                        </Link>
+                    </span>
+                </div>
             </form>
         </div>
     );
 }
 
-Login.getLayout = (page) => <Guest children={page} />;
+Login.getLayout = (page) => (
+    <Guest title="login" header="Login" children={page} />
+);
